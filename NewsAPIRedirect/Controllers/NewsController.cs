@@ -33,7 +33,7 @@ namespace NewsAPIRedirect.Controllers
         [HttpGet]
         public async Task<ActionResult> GetNewsByKeyword(string country, string keyword)
         {
-            var requestUri = $"https://newsapi.org/v2/top-headlines??country={country}&q={keyword}&pageSize=100&apiKey=" + Configuration.GetValue<string>("NewsApiKey");
+            var requestUri = $"https://newsapi.org/v2/top-headlines?country={country}&q={keyword}&pageSize=100&apiKey=" + Configuration.GetValue<string>("NewsApiKey");
             var news = await WebRequests.GetAsync(requestUri);
             var newsObj = JsonConvert.DeserializeObject<NewsApi>(news);
             return Ok(newsObj);
