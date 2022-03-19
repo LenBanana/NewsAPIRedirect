@@ -38,5 +38,14 @@ namespace NewsAPIRedirect.Controllers
             var newsObj = JsonConvert.DeserializeObject<NewsApi>(news);
             return Ok(newsObj);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetEverythingByKeyword(string language, string keyword, string page)
+        {
+            var requestUri = $"https://newsapi.org/v2/everything?language={language}&q={keyword}&pageSize=100&page={page}&sortBy=relevancy&apiKey=" + Configuration.GetValue<string>("NewsApiKey");
+            var news = await WebRequests.GetAsync(requestUri);
+            var newsObj = JsonConvert.DeserializeObject<NewsApi>(news);
+            return Ok(newsObj);
+        }
     }
 }
